@@ -10,7 +10,7 @@ body {
 }
 
 h1 {
-  color: #fff;
+  color: #fff !important;
   font-size: 2em;
   padding-top: 100px;
   width: 100%;
@@ -69,7 +69,7 @@ p {
 }
 
 .image {
-  background-image: url("https://content.codecademy.com/courses/web-101/unit-4/htmlcss1-img_soccer.jpeg");
+  background-image: url("https://content.codecademy.com/courses/freelance-1/unit-2/soccer.jpeg");
   background-size: cover;
   background-position: center;
   height: 300px;
