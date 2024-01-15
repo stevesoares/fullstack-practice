@@ -6,6 +6,9 @@ body {
 
 header {
   background-color: #333333;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 }
 
 nav {
@@ -18,10 +21,14 @@ nav li {
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 12px;
+  display: inline-block;
+  width: 80px;
 }
 
 main {
   text-align: center;
+  position: relative;
+  top: 80px;
 }
 
 main h1 {
@@ -39,6 +46,9 @@ footer {
   background-color: #333;
   color: #fff;
   padding: 30px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 footer p {
@@ -94,6 +104,9 @@ footer p {
 .supporting .col {
   font-family: "Raleway", sans-serif;
   text-align: center;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
 }
 
 .supporting img {
@@ -132,9 +145,5 @@ footer p {
   main h1 {
     font-size: 50px;
     padding: 0 40px;
-  }
-
-  .supporting .col {
-    width: 100%;
   }
 }
