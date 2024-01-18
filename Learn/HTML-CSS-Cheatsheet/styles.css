@@ -1,42 +1,47 @@
 html {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 body {
-    font-family:'Times New Roman', Times, serif;
-    color: darkslategray;
+  font-family: "Times New Roman", Times, serif;
+  color: darkslategray;
 }
 
 h1 {
-    font-size: 24px;
-    text-align: center;
-    font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  font-weight: 700;
+  padding: 25px;
 }
 
-table {
-
+table,
+th,
+td {
+  border: 1px solid;
+  border-color: darkslategray;
+  border-collapse: collapse;
+  text-align: center;
+  padding: 10px;
 }
 
 th {
-    text-align: center;
-    font-weight: 700;
-    padding: 5px;
-    color: whitesmoke;
-    background-color: darkslategray;
+  text-align: center;
+  font-weight: 700;
+  color: whitesmoke;
+  background-color: darkslategray;
 }
 
 td {
-    padding: 5px;
-    text-align: left;
 }
 
 .property {
-    font-family: monospace;
-    color: white;
-    background-color: grey;
+  font-family: monospace;
+  color: white;
+  background-color: grey;
+  padding: 3px;
 }
 
 .center {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
