@@ -5,6 +5,7 @@ html {
 body {
   font-family: "Times New Roman", Times, serif;
   color: darkslategray;
+  font-size: 16px;
 }
 
 h1 {
@@ -31,11 +32,9 @@ th {
   background-color: darkslategray;
 }
 
-td {
-}
-
 .property {
   font-family: monospace;
+  font-size: small;
   color: white;
   background-color: grey;
   padding: 3px;
