@@ -1,0 +1,149 @@
+body {
+  font-family: "Titillium Web", sans-serif;
+  color: black;
+  font-size: 14px;
+}
+header {
+  background-color: black;
+  margin-bottom: 10px;
+  position: relative;
+  height: auto;
+  width: auto;
+  text-align: center;
+  text-shadow: 2px black;
+  color: whitesmoke;
+  padding: 100px;
+}
+
+h1 {
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 14px;
+}
+
+ul {
+  list-style-type: none;
+  display: inline;
+}
+
+.container {
+  text-align: center;
+  border: solid 1px;
+  padding: 15px;
+  margin: 5px 0px;
+}
+
+.color-container {
+  width: 100%;
+  text-align: center;
+}
+
+.color-panel {
+  display: inline-block;
+  width: 22%;
+  text-align: center;
+  margin: 15px auto;
+  min-height: 75px;
+}
+
+.caribbean-blue {
+  background-color: #1088a0;
+}
+
+.dusty-blue {
+  background-color: #78b2c4;
+}
+
+.island-sand {
+  background-color: #cfc1af;
+}
+
+.gray {
+  background-color: #818792;
+}
+
+.font-container {
+  width: 100%;
+  text-align: center;
+}
+
+.font-panel {
+  width: 32%;
+  display: inline-block;
+  text-align: center;
+  margin: 2px auto;
+}
+
+.font-label {
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.light {
+  font-weight: 300;
+}
+.regular {
+  font-style: normal;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.titillium-web {
+  font-family: "Titillium Web", sans-serif;
+}
+
+.victor-mono {
+  font-family: "Victor Mono", monospace;
+}
+
+.text-panel {
+  width: 23%;
+  display: inline-block;
+  padding: 3px;
+  margin-bottom: 5px;
+}
+.text-panel h1 {
+  font-weight: 300;
+  font-size: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.text-panel h2 {
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Titillium Web", sans-serif;
+}
+
+.text-panel p {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Titillium Web", sans-serif;
+}
+
+.text-panel .footer {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Victor Mono", monospace;
+}
+
+footer {
+  height: 15px;
+}
