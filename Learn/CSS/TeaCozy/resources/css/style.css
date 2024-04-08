@@ -1,0 +1,126 @@
+body {
+  font-family: Helvetica;
+  color: seashell;
+  background-color: black;
+  opacity: 0.9;
+  text-align: center;
+  margin: 0;
+}
+
+header {
+  display: block;
+  background-color: black;
+  height: 69px;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  border-bottom: 1px solid seashell;
+  color: seashell;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  float: right;
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+.nav li {
+  font-size: 22px;
+  list-style-type: none;
+  padding: 0 10px;
+}
+
+a,
+a.active {
+  color: seashell;
+}
+
+#logo {
+  height: 50px;
+  float: left;
+  padding-top: 9.5px;
+  padding-left: 10px;
+}
+
+#mission-container {
+  background-image: url("https://content.codecademy.com/courses/freelance-1/unit-4/img-mission-background.jpg?_gl=1*tiahuj*_ga*NTMzMjQ2ODMxMy4xNjk4MDg4NTgw*_ga_3LRZM6TM9L*MTcxMjYxODgyNy44LjEuMTcxMjYxODgzNC41My4wLjA.");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 700px;
+  max-width: 1200px;
+  margin: 40px auto;
+  display: flex;
+}
+
+#text-over {
+  margin: auto;
+  background-color: black;
+  width: 100%;
+}
+
+#mission div {
+  width: 100%;
+  padding: auto;
+}
+
+#featured-tea {
+  display: inline-flex;
+  max-width: 1000px;
+  height: auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.sample img {
+  width: 300px;
+  height: 200px;
+  padding: 10px;
+}
+
+.banner {
+  height: 500px;
+  max-width: 1200px;
+  margin: 40px auto auto auto;
+  padding-top: 85px;
+  background-image: url("https://content.codecademy.com/courses/freelance-1/unit-4/img-locations-background.jpg?_gl=1*1igw6v7*_ga*NTMzMjQ2ODMxMy4xNjk4MDg4NTgw*_ga_3LRZM6TM9L*MTcxMjYxODgyNy44LjEuMTcxMjYxODgzNC41My4wLjA.");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.text-top {
+  width: 100%;
+  text-align: center;
+}
+
+#box-table {
+  max-width: 1050px;
+  margin: 15px auto auto auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  height: 300px;
+  padding: 20px;
+  margin-bottom: auto;
+  flex-basis: 30%;
+  box-sizing: border-box;
+  background-color: black;
+  opacity: 0.8;
+  align-content: center;
+}
+
+footer #contact {
+  height: 200px;
+  text-align: center;
+}
+
+footer #copyright {
+  text-align: left;
+  margin: 20px;
+}
