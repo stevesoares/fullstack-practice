@@ -43,8 +43,8 @@ RockPaperScissors/
 
 ## Installation
 
-1. Clone this repository or download the files
-2. Open `index.html` in your web browser
+1. Download the files.
+2. Open `index.html` in your web browser.
 3. Start playing!
 
 ## Copyright
