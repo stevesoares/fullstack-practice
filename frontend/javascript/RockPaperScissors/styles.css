@@ -41,6 +41,9 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   text-align: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 1rem auto;
 }
 
 h1 {
@@ -149,10 +152,12 @@ h1 {
   body {
     background: linear-gradient(
       135deg,
-      #0a1629 0%,
-      /* Darker blue */ #1a1a1a 50%,
-      /* Almost black */ #162847 100% /* Dark blue */
+      #1a237e 0%,     /* Dark blue */
+      #4a1042 50%,    /* Dark purple/red */
+      #162847 100%    /* Dark blue */
     );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
   }
 
   .container {
@@ -161,7 +166,7 @@ h1 {
   }
 
   h1 {
-    color: #7aa2f7; /* Light blue for better contrast */
+    color: #7aa2f7;  /* Light blue for better contrast */
   }
 
   .score-board {
@@ -207,4 +212,83 @@ h1 {
   .instructions {
     color: #fff;
   }
+}
+
+/* Mobile-friendly adjustments */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .instructions {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  .instructions p {
+    margin: 0.2rem;
+  }
+
+  .choices {
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .choice {
+    font-size: 2.5rem;
+    padding: 1rem;
+    border-width: 2px;
+  }
+
+  .result {
+    font-size: 1.2rem;
+    margin: 15px 0;
+  }
+
+  .moves {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .record {
+    font-size: 1.4rem;
+    margin-top: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 320px) {
+  .choice {
+    font-size: 2rem;
+    padding: 0.8rem;
+  }
+
+  .container {
+    padding: 0.8rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Ensure the body fills the viewport properly on mobile */
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fix for Safari mobile viewport height */
+html {
+  height: -webkit-fill-available;
 }
