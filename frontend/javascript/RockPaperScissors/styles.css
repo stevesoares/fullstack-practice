@@ -72,12 +72,17 @@ h1 {
   border: 3px solid #333;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s ease;
+  transform: scale(1);
 }
 
 .choice:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.choice:active {
+  transform: scale(1);
+  transition: transform 0.1s ease;
 }
 
 .result {
@@ -291,4 +296,27 @@ body {
 /* Fix for Safari mobile viewport height */
 html {
   height: -webkit-fill-available;
+}
+
+/* Style for the play again prompt */
+.play-again {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.5rem 0;
+  font-style: italic;
+}
+
+/* Dark mode adjustment */
+@media (prefers-color-scheme: dark) {
+  .play-again {
+    color: #aaa;
+  }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 480px) {
+  .play-again {
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+  }
 }

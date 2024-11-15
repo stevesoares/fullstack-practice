@@ -75,23 +75,28 @@ document.querySelectorAll(".choice").forEach((button) => {
 
 // Update the result display function
 function displayResult(playerChoice, computerChoice, result) {
-  const resultDiv = document.getElementById("result");
-  const movesDiv = document.querySelector(".moves");
-
+  const resultDiv = document.getElementById('result');
+  const movesDiv = document.querySelector('.moves');
+  
   // Set the result text with appropriate color class
-  resultDiv.textContent = result;
-  if (result.includes("Win")) {
-    resultDiv.className = "result win";
-  } else if (result.includes("Lose")) {
-    resultDiv.className = "result lose";
+  resultDiv.innerHTML = `
+    ${result}<br>
+    <span class="play-again">Select an option to play again!</span>
+  `;
+  
+  // Set appropriate class for coloring
+  if (result.includes('Win')) {
+    resultDiv.className = 'result win';
+  } else if (result.includes('Lose')) {
+    resultDiv.className = 'result lose';
   } else {
-    resultDiv.className = "result tie";
+    resultDiv.className = 'result tie';
   }
 
-  // Show the emoji choices below
+  // Show the moves
   movesDiv.innerHTML = `
-        <span>${choiceEmojis[playerChoice]}</span>
-        <span>vs</span>
-        <span>${choiceEmojis[computerChoice]}</span>
-    `;
+    <span>${choiceEmojis[playerChoice]}</span>
+    <span>vs</span>
+    <span>${choiceEmojis[computerChoice]}</span>
+  `;
 }
