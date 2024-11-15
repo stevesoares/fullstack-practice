@@ -1,0 +1,74 @@
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h1 {
+  color: #1e3c72;
+  margin-bottom: 2rem;
+}
+
+.score-board {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.choice {
+  font-size: 2.5rem;
+  padding: 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.choice:hover {
+  transform: scale(1.2);
+}
+
+.result {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  min-height: 2rem;
+}
+
+.moves {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.winner {
+  color: #4caf50;
+}
+
+.loser {
+  color: #f44336;
+}
+
+.tie {
+  color: #2196f3;
+}
