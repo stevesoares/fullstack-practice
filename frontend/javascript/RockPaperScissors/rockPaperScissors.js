@@ -52,8 +52,14 @@ const updateMoves = (playerChoice, computerChoice) => {
 };
 
 const updateResult = (result, status) => {
-  const resultDiv = document.getElementById("result");
-  resultDiv.textContent = result;
+  const resultDiv = document.getElementById('result');
+  
+  // Always include the play again prompt after the first game
+  resultDiv.innerHTML = `
+    ${result}<br>
+    <span class="play-again">Select an option to play again!</span>
+  `;
+  
   resultDiv.className = `result ${status}`;
 };
 
@@ -78,7 +84,7 @@ function displayResult(playerChoice, computerChoice, result) {
   const resultDiv = document.getElementById('result');
   const movesDiv = document.querySelector('.moves');
   
-  // Set the result text with appropriate color class
+  // Set the result text with play again prompt
   resultDiv.innerHTML = `
     ${result}<br>
     <span class="play-again">Select an option to play again!</span>
