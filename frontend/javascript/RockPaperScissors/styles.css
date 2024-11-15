@@ -1,11 +1,6 @@
 body {
   font-family: "Arial", sans-serif;
-  background: linear-gradient(
-    135deg,
-    #1e3c72 0%,
-    #2a5298 50%,
-    #4286f4 100%
-  );
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4286f4 100%);
   background: -webkit-linear-gradient(
     135deg,
     #1e3c72 0%,
@@ -18,12 +13,7 @@ body {
     #2a5298 50%,
     #4286f4 100%
   );
-  background: linear-gradient(
-    135deg,
-    #1e3c72 0%,
-    #ff6b6b 50%,
-    #4286f4 100%
-  );
+  background: linear-gradient(135deg, #1e3c72 0%, #ff6b6b 50%, #4286f4 100%);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   min-height: 100vh;
@@ -84,7 +74,7 @@ h1 {
 
 .choice:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .result {
@@ -94,17 +84,16 @@ h1 {
 }
 
 .result.win {
-  color: #2ecc71;  /* Green color for wins */
+  color: #2ecc71; /* Green color for wins */
 }
 
 .result.lose {
-  color: #e74c3c;  /* Red color for losses */
+  color: #e74c3c; /* Red color for losses */
 }
 
 .result.tie {
-  color: #3498db;  /* Blue color for ties */
+  color: #3498db; /* Blue color for ties */
 }
-
 
 .moves {
   display: flex;
@@ -160,9 +149,9 @@ h1 {
   body {
     background: linear-gradient(
       135deg,
-      #0a1629 0%,    /* Darker blue */
-      #1a1a1a 50%,   /* Almost black */
-      #162847 100%   /* Dark blue */
+      #0a1629 0%,
+      /* Darker blue */ #1a1a1a 50%,
+      /* Almost black */ #162847 100% /* Dark blue */
     );
   }
 
@@ -172,7 +161,7 @@ h1 {
   }
 
   h1 {
-    color: #7aa2f7;  /* Light blue for better contrast */
+    color: #7aa2f7; /* Light blue for better contrast */
   }
 
   .score-board {
@@ -186,18 +175,36 @@ h1 {
   }
 
   .winner {
-    color: #7bc365;  /* Softer green */
+    color: #7bc365; /* Softer green */
   }
 
   .loser {
-    color: #ff6b6b;  /* Softer red */
+    color: #ff6b6b; /* Softer red */
   }
 
   .tie {
-    color: #7aa2f7;  /* Softer blue */
+    color: #7aa2f7; /* Softer blue */
   }
 
   .separator {
     color: #ccc;
+  }
+}
+
+.instructions {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.instructions p {
+  margin: 0.3rem;
+}
+
+/* Dark mode adjustment */
+@media (prefers-color-scheme: dark) {
+  .instructions {
+    color: #fff;
   }
 }
