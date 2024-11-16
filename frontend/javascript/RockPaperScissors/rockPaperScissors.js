@@ -74,9 +74,24 @@ const playGame = (playerChoice) => {
 
 // Event Listeners
 document.querySelectorAll(".choice").forEach((button) => {
+  let isProcessing = false;
+
   button.addEventListener("click", (e) => {
+    if (isProcessing) return;
+    
+    isProcessing = true;
     playGame(e.target.dataset.choice);
+    
+    // Reset the processing flag after a short delay
+    setTimeout(() => {
+      isProcessing = false;
+    }, 300); // 300ms debounce
   });
+
+  // Prevent default touch behavior
+  button.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+  }, { passive: false });
 });
 
 // Update the result display function

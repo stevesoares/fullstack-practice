@@ -74,6 +74,9 @@ h1 {
   cursor: pointer;
   transition: transform 0.2s ease;
   transform: scale(1);
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .choice:hover {
@@ -319,4 +322,9 @@ html {
     font-size: 0.9rem;
     margin: 0.3rem 0;
   }
+}
+
+/* Also add this to prevent any zooming interactions on the game container */
+#game-container {
+    touch-action: manipulation;
 }
