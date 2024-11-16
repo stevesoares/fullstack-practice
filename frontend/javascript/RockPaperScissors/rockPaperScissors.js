@@ -76,22 +76,33 @@ const playGame = (playerChoice) => {
 document.querySelectorAll(".choice").forEach((button) => {
   let isProcessing = false;
 
-  button.addEventListener("click", (e) => {
+  const handleChoice = (e) => {
     if (isProcessing) return;
     
     isProcessing = true;
-    playGame(e.target.dataset.choice);
+    const choice = e.target.dataset.choice;
+    if (choice) {
+      playGame(choice);
+    }
     
     // Reset the processing flag after a short delay
     setTimeout(() => {
       isProcessing = false;
-    }, 300); // 300ms debounce
+    }, 300);
+  };
+
+  // Handle touch events
+  button.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    handleChoice(e);
   });
 
-  // Prevent default touch behavior
-  button.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-  }, { passive: false });
+  // Keep click handler for non-touch devices
+  button.addEventListener("click", (e) => {
+    if (e.pointerType !== 'touch') { // Only handle non-touch clicks
+      handleChoice(e);
+    }
+  });
 });
 
 // Update the result display function
