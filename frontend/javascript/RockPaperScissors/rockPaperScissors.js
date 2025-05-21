@@ -52,14 +52,14 @@ const updateMoves = (playerChoice, computerChoice) => {
 };
 
 const updateResult = (result, status) => {
-  const resultDiv = document.getElementById('result');
-  
+  const resultDiv = document.getElementById("result");
+
   // Always include the play again prompt after the first game
   resultDiv.innerHTML = `
     ${result}<br>
     <span class="play-again">Select an option to play again!</span>
   `;
-  
+
   resultDiv.className = `result ${status}`;
 };
 
@@ -78,13 +78,13 @@ document.querySelectorAll(".choice").forEach((button) => {
 
   const handleChoice = (e) => {
     if (isProcessing) return;
-    
+
     isProcessing = true;
     const choice = e.target.dataset.choice;
     if (choice) {
       playGame(choice);
     }
-    
+
     // Reset the processing flag after a short delay
     setTimeout(() => {
       isProcessing = false;
@@ -99,7 +99,8 @@ document.querySelectorAll(".choice").forEach((button) => {
 
   // Keep click handler for non-touch devices
   button.addEventListener("click", (e) => {
-    if (e.pointerType !== 'touch') { // Only handle non-touch clicks
+    if (e.pointerType !== "touch") {
+      // Only handle non-touch clicks
       handleChoice(e);
     }
   });
@@ -107,22 +108,22 @@ document.querySelectorAll(".choice").forEach((button) => {
 
 // Update the result display function
 function displayResult(playerChoice, computerChoice, result) {
-  const resultDiv = document.getElementById('result');
-  const movesDiv = document.querySelector('.moves');
-  
+  const resultDiv = document.getElementById("result");
+  const movesDiv = document.querySelector(".moves");
+
   // Set the result text with play again prompt
   resultDiv.innerHTML = `
     ${result}<br>
     <span class="play-again">Select an option to play again!</span>
   `;
-  
+
   // Set appropriate class for coloring
-  if (result.includes('Win')) {
-    resultDiv.className = 'result win';
-  } else if (result.includes('Lose')) {
-    resultDiv.className = 'result lose';
+  if (result.includes("Win")) {
+    resultDiv.className = "result win";
+  } else if (result.includes("Lose")) {
+    resultDiv.className = "result lose";
   } else {
-    resultDiv.className = 'result tie';
+    resultDiv.className = "result tie";
   }
 
   // Show the moves
