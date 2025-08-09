@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -32,8 +34,17 @@ export const Navbar = () => {
             <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground" aria-label="FAQ" tabIndex={0}>FAQ</a>
           </div>
           <div className="flex flex-1 items-center justify-end gap-2">
-            <Link href="/auth/signin?callbackUrl=%2Fapp" className="rounded-xl px-4 py-2 text-sm ring-1 ring-border" aria-label="Log in" tabIndex={0}>Login</Link>
-            <Link href="/auth/signup?callbackUrl=%2Fapp" className="rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground" aria-label="Sign Up" tabIndex={0}>Sign Up</Link>
+            {session ? (
+              <>
+                <Link href="/app" className="rounded-xl px-4 py-2 text-sm ring-1 ring-border" aria-label="Open App" tabIndex={0}>Open App</Link>
+                <button onClick={() => signOut({ redirect: true, callbackUrl: "/" })} className="rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground" aria-label="Sign out" tabIndex={0}>Sign out</button>
+              </>
+            ) : (
+              <>
+                <Link href="/auth/signin?callbackUrl=%2Fapp" className="rounded-xl px-4 py-2 text-sm ring-1 ring-border" aria-label="Log in" tabIndex={0}>Login</Link>
+                <Link href="/auth/signup?callbackUrl=%2Fapp" className="rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground" aria-label="Sign Up" tabIndex={0}>Sign Up</Link>
+              </>
+            )}
           </div>
         </div>
       </div>

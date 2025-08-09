@@ -9,7 +9,7 @@ export default async function AppLeadDetailPage({ params }: PageProps) {
   if (!lead) return notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-8 space-y-6">
+    <main className="mx-auto max-w-3xl px-4 sm:px-6 py-6 sm:py-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="font-[var(--font-cormorant)] text-3xl">{lead.clientName}</h1>
         <span className="text-xs rounded-full bg-muted px-2 py-1">{lead.status}</span>

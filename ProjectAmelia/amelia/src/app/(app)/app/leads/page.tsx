@@ -4,7 +4,7 @@ import { prisma } from "@/server/db";
 export default async function LeadsPage() {
   const leads = await prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 20 });
   return (
-    <main className="mx-auto max-w-6xl px-6 py-8">
+    <main className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
       <h1 className="mb-6 font-[var(--font-cormorant)] text-4xl">Leads</h1>
       {leads.length === 0 ? (
         <p className="text-sm text-muted-foreground">No leads yet.</p>

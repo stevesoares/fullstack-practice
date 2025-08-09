@@ -23,6 +23,10 @@ export default function SettingsForm({ user }: { user: User | null }) {
     email: user?.email ?? "",
     phone: user?.phone ?? "",
     address: user?.address ?? "",
+    addressStreet: (user as any)?.addressStreet ?? "",
+    addressCity: (user as any)?.addressCity ?? "",
+    addressState: (user as any)?.addressState ?? "",
+    addressPostalCode: (user as any)?.addressPostalCode ?? "",
     billingEmail: user?.billingEmail ?? user?.email ?? "",
     plan: user?.plan ?? "starter",
     currentPassword: "",
@@ -53,6 +57,10 @@ export default function SettingsForm({ user }: { user: User | null }) {
         email: state.email,
         phone: state.phone,
         address: state.address,
+        addressStreet: state.addressStreet,
+        addressCity: state.addressCity,
+        addressState: state.addressState,
+        addressPostalCode: state.addressPostalCode,
         billingEmail: state.billingEmail,
       }),
     });
@@ -102,7 +110,10 @@ export default function SettingsForm({ user }: { user: User | null }) {
           <Field name="companyName" label="Company" value={state.companyName} onChange={handleChange} className="sm:col-span-2" />
           <Field name="email" type="email" label="Email" value={state.email} onChange={handleChange} />
           <Field name="phone" label="Phone" value={state.phone} onChange={handleChange} />
-          <Field name="address" label="Address" value={state.address} onChange={handleChange} className="sm:col-span-2" />
+          <Field name="addressStreet" label="Street Address" value={state.addressStreet} onChange={handleChange} className="sm:col-span-2" />
+          <Field name="addressCity" label="City" value={state.addressCity} onChange={handleChange} />
+          <Field name="addressState" label="State" value={state.addressState} onChange={handleChange} />
+          <Field name="addressPostalCode" label="ZIP Code" value={state.addressPostalCode} onChange={handleChange} />
           <Field name="billingEmail" type="email" label="Billing Email" value={state.billingEmail} onChange={handleChange} />
           <Field name="plan" label="Plan" value={state.plan} onChange={handleChange} disabled />
         </div>

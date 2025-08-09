@@ -6,7 +6,7 @@ import { useSession, signOut } from "next-auth/react";
 
 export const UserMenu = () => {
   const { data } = useSession();
-  const name = (data?.user?.name as string | undefined) ?? (data?.user?.email as string | undefined) ?? "Account";
+  const name = (data?.user?.name as string | undefined) ?? (data?.user?.email as string | undefined) ?? "";
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -21,12 +21,11 @@ export const UserMenu = () => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 rounded-full border border-border bg-background px-2 py-1 text-sm"
+        className="flex items-center gap-2 rounded-full border border-border bg-background px-2.5 py-1.5 text-sm"
         aria-haspopup="menu"
         aria-expanded={open}
       >
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs">{name?.slice(0,1)?.toUpperCase()}</span>
-        <span className="hidden sm:inline">{name}</span>
+        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-muted text-sm">{(name?.slice(0,1) || "A").toUpperCase()}</span>
       </button>
       {open ? (
         <div role="menu" className="absolute right-0 mt-2 w-56 rounded-xl border border-border bg-background p-2 shadow">

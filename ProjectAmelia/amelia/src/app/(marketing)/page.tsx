@@ -29,7 +29,7 @@ export default function Home() {
       </section>
 
       <section id="features" className="bg-card py-20">
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-4 sm:gap-6 sm:px-6 md:grid-cols-3">
           {[
             { t: "Leads Pipeline", d: "Drag-and-drop from Lead to Booked." },
             { t: "Calendar Sync", d: "Two-way with Google Calendar." },
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-5xl px-6 py-20">
+      <section id="pricing" className="mx-auto max-w-5xl px-4 sm:px-6 py-20">
         <h2 className="mb-6 font-[var(--font-cormorant)] text-3xl">Simple Pricing</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {[
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-3xl px-6 py-20">
+      <section id="faq" className="mx-auto max-w-3xl px-4 sm:px-6 py-20">
         <h2 className="mb-6 font-[var(--font-cormorant)] text-3xl">FAQ</h2>
         <div className="space-y-4">
           {[

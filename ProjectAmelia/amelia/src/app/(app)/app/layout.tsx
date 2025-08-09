@@ -13,7 +13,7 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
           <div className="flex items-center justify-center">
             <Link href="/app" className={`${cormorant.className} text-xl tracking-wide`} aria-label="Amelia App" tabIndex={0}>Amelia</Link>
           </div>
-          <div className="mt-2 flex items-center justify-between">
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
             <div className="flex-1" />
             <AppTabs />
             <div className="flex-1 flex justify-end">

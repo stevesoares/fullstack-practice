@@ -17,22 +17,24 @@ const tabs: Tab[] = [
 export const AppTabs = () => {
   const pathname = usePathname() ?? "/app";
   return (
-    <nav className="ml-auto flex items-center gap-1" aria-label="App">
-      {tabs.map((t) => {
-        const active = t.isActive(pathname);
-        return (
-          <Link
-            key={t.href}
-            href={t.href}
-            aria-current={active ? "page" : undefined}
-            className="rounded-lg px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground"
-            tabIndex={0}
-          >
-            {t.label}
-          </Link>
-        );
-      })}
-    </nav>
+    <div className="ml-auto -mx-2 max-w-full overflow-x-auto scrollbar-none">
+      <nav className="flex items-center gap-1 whitespace-nowrap px-2" aria-label="App">
+        {tabs.map((t) => {
+          const active = t.isActive(pathname);
+          return (
+            <Link
+              key={t.href}
+              href={t.href}
+              aria-current={active ? "page" : undefined}
+              className="inline-flex rounded-lg px-3 py-2 text-sm text-muted-foreground hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground"
+              tabIndex={0}
+            >
+              {t.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
   );
 };
 
