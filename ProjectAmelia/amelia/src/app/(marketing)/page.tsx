@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="min-h-dvh">
-      <section id="hero" className="relative flex min-h-dvh flex-col items-center justify-center gap-8 px-6 py-24 text-center">
+    <main className="min-h-dvh" data-scope="marketing">
+      <section id="hero" className="relative flex min-h-dvh flex-col items-center justify-center gap-8 px-6 pb-24 pt-36 text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground ring-1 ring-border">
           <span>Project Amelia</span>
           <span className="text-primary">MVP</span>
@@ -9,15 +9,15 @@ export default function Home() {
         <h1 className="font-[var(--font-cormorant)] text-5xl md:text-6xl lg:text-7xl tracking-tight">
           Manage clients, contracts, payments, and galleries — simply.
         </h1>
-        <p className="max-w-2xl text-balance text-muted-foreground">
+        <p className="mx-auto max-w-2xl text-balance text-muted-foreground">
           Built for wedding photographers, planners, and creatives. One calm workspace to win leads and deliver on time.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <a href="#pricing" className="rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="See pricing" tabIndex={0}>See pricing</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/api/auth/signin" className="rounded-xl bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground ring-1 ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Log in" tabIndex={0} rel="nofollow">Login</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/api/auth/signin" className="rounded-xl bg-muted px-5 py-3 text-sm font-medium text-foreground ring-1 ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Sign up" tabIndex={0} rel="nofollow">Sign Up</a>
+          { }
+          <a href="/auth/signin?callbackUrl=%2Fapp" className="rounded-xl bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground ring-1 ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Log in" tabIndex={0} rel="nofollow">Login</a>
+          { }
+          <a href="/auth/signup?callbackUrl=%2Fapp" className="rounded-xl bg-muted px-5 py-3 text-sm font-medium text-foreground ring-1 ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Sign up" tabIndex={0} rel="nofollow">Sign Up</a>
         </div>
       </section>
 
@@ -62,8 +62,8 @@ export default function Home() {
                   <li key={x}>• {x}</li>
                 ))}
               </ul>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/api/auth/signin" className="inline-block rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label={`Choose ${plan.t}`} tabIndex={0} rel="nofollow">Choose {plan.t}</a>
+              { }
+              <a href="/auth/signup?callbackUrl=%2Fapp" className="inline-block rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label={`Choose ${plan.t}`} tabIndex={0} rel="nofollow">Choose {plan.t}</a>
             </div>
           ))}
         </div>
@@ -87,3 +87,5 @@ export default function Home() {
     </main>
   );
 }
+
+

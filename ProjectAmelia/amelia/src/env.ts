@@ -30,6 +30,8 @@ const envSchema = z.object({
   GOOGLE_CALENDAR_CLIENT_ID: z.string().optional(),
   GOOGLE_CALENDAR_CLIENT_SECRET: z.string().optional(),
   GOOGLE_CALENDAR_REDIRECT_URI: z.string().optional(),
+  // Public client keys
+  NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string().optional(),
 });
 
 export const env = (() => {
@@ -56,6 +58,7 @@ export const env = (() => {
     GOOGLE_CALENDAR_CLIENT_ID: process.env.GOOGLE_CALENDAR_CLIENT_ID,
     GOOGLE_CALENDAR_CLIENT_SECRET: process.env.GOOGLE_CALENDAR_CLIENT_SECRET,
     GOOGLE_CALENDAR_REDIRECT_URI: process.env.GOOGLE_CALENDAR_REDIRECT_URI,
+    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
   if (!parsed.success) {

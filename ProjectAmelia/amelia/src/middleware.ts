@@ -1,12 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-// Pass-through middleware (no auth yet). Ensures routes render normally.
-export function middleware() {
-  return NextResponse.next();
+export async function middleware(req: NextRequest) {
+  const url = new URL(req.url);
+  // Only guard /app routes (see matcher below)
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (token) return NextResponse.next();
+
+  const callbackUrl = encodeURIComponent(url.pathname + url.search);
+  const signInUrl = new URL(`/api/auth/signin?callbackUrl=${callbackUrl}`, url.origin);
+  return NextResponse.redirect(signInUrl);
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/app/:path*"],
 };
 
 

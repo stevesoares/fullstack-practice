@@ -5,15 +5,17 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/server/db";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(8),
 });
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+  pages: { signIn: "/auth/signin" },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -30,17 +32,20 @@ export const authOptions: NextAuthOptions = {
       async authorize(creds) {
         const parsed = credentialsSchema.safeParse(creds);
         if (!parsed.success) return null;
-        const { email } = parsed.data;
-        let user = await prisma.user.findUnique({ where: { email } });
-        if (!user) {
-          user = await prisma.user.create({ data: { email, name: email.split("@")[0] } });
+        const { email, password } = parsed.data as { email: string; password: string };
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) return null;
+
+        // Transition: if user has no passwordHash yet, set it now
+        if (!user.passwordHash) {
+          const hash = await bcrypt.hash(password, 10);
+          await prisma.user.update({ where: { id: user.id }, data: { passwordHash: hash } });
+        } else {
+          const ok = await bcrypt.compare(password, user.passwordHash);
+          if (!ok) return null;
         }
-        const authedUser: { id: string; email?: string; name?: string } = {
-          id: user.id,
-          email: user.email ?? undefined,
-          name: user.name ?? undefined,
-        };
-        return authedUser;
+
+        return { id: user.id, email: user.email ?? undefined, name: user.name ?? undefined };
       },
     }),
   ],
@@ -50,6 +55,22 @@ export const authOptions: NextAuthOptions = {
       const userId = typeof token?.sub === "string" ? token.sub : undefined;
       if (session?.user && userId) (session.user as { id?: string }).id = userId;
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      try {
+        const { origin } = new URL(baseUrl);
+        const next = new URL(url, baseUrl);
+        // If sending to sign-in or unknown path, go to /app
+        if (next.origin === origin) {
+          if (next.pathname === "/" || next.pathname.startsWith("/api/auth")) {
+            return `${origin}/app`;
+          }
+          return next.toString();
+        }
+        return `${origin}/app`;
+      } catch {
+        return `${baseUrl}/app`;
+      }
     },
   },
 };

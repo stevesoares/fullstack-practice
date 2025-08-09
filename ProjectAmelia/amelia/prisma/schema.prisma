@@ -21,9 +21,22 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  firstName     String?
+  lastName      String?
+  companyName   String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  phone         String?
+  address       String?
+  addressStreet String?
+  addressCity   String?
+  addressState  String?
+  addressPostalCode String?
+  passwordHash  String?
+  plan          String    @default("starter")
+  billingEmail  String?
+  billingAddress String?
 
   // Auth
   accounts Account[]
@@ -170,6 +183,7 @@ model MediaItem {
   filename   String
   s3Key      String
   mimeType   String
+  sizeBytes  Int      @default(0)
   createdAt  DateTime @default(now())
 }
 
