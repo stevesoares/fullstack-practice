@@ -9,7 +9,7 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
   return (
     <div className="min-h-dvh">
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-3">
+        <div className="mx-auto max-w-7xl px-4 py-3">
           <div className="flex items-center justify-center">
             <Link href="/app" className={`${cormorant.className} text-xl tracking-wide`} aria-label="Amelia App" tabIndex={0}>Amelia</Link>
           </div>

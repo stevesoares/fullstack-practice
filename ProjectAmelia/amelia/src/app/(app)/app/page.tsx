@@ -1,4 +1,8 @@
 import { prisma } from "@/server/db";
+import CreateNew from "./_components/CreateNew";
+import Link from "next/link";
+import CalendarMonth from "./_components/CalendarMonth";
+import { CreateContactModalMount, CreateEventModalMount, CreateProjectModalMount } from "./_components/CreateModals";
 
 function startOfWeek(date: Date) {
   const d = new Date(date);
@@ -43,8 +47,13 @@ export default async function AppHomePage() {
       ) / 100;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
+    <>
+    <main className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 space-y-4 sm:space-y-6 md:space-y-8">
       <h1 className="font-[var(--font-cormorant)] text-4xl">Overview</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div />
+        <CreateNew />
+      </div>
       <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-3">
         <KpiCard title="Conversion Rate" value={`${conversionRate}%`} subtext={`${bookedLeads}/${totalLeads} booked`} />
         <KpiCard title="Leads This Week" value={leadsThisWeek} subtext="Week-to-date" />
@@ -52,32 +61,35 @@ export default async function AppHomePage() {
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
-        <section className="rounded-2xl border border-border bg-background p-4 sm:p-6 lg:col-span-2">
-          <h2 className="mb-2 text-lg font-semibold">Calendar</h2>
-          <p className="text-sm text-muted-foreground">Connect Google Calendar to see upcoming events.</p>
+        <section className="rounded-2xl border border-border bg-background p-0 lg:col-span-2">
+          <CalendarMonth />
         </section>
 
-        <section className="rounded-2xl border border-border bg-background p-4 sm:p-6">
+        <section className="rounded-2xl border border-border bg-background p-3 sm:p-4 md:p-6">
           <h2 className="mb-2 text-lg font-semibold">Leads</h2>
           <p className="text-sm text-muted-foreground">Latest inquiries and statuses.</p>
         </section>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
-        <section className="rounded-2xl border border-border bg-background p-4 sm:p-6">
+        <section className="rounded-2xl border border-border bg-background p-3 sm:p-4 md:p-6">
           <h2 className="mb-2 text-lg font-semibold">Clients</h2>
           <p className="text-sm text-muted-foreground">Recent clients with active projects.</p>
         </section>
-        <section className="rounded-2xl border border-border bg-background p-4 sm:p-6">
+        <section className="rounded-2xl border border-border bg-background p-3 sm:p-4 md:p-6">
           <h2 className="mb-2 text-lg font-semibold">Sales</h2>
           <p className="text-sm text-muted-foreground">Open invoices, recent payments.</p>
         </section>
-        <section className="rounded-2xl border border-border bg-background p-4 sm:p-6">
+        <section className="rounded-2xl border border-border bg-background p-3 sm:p-4 md:p-6">
           <h2 className="mb-2 text-lg font-semibold">Galleries</h2>
           <p className="text-sm text-muted-foreground">Newly delivered albums.</p>
         </section>
       </div>
     </main>
+    <CreateContactModalMount />
+    <CreateProjectModalMount />
+    <CreateEventModalMount />
+    </>
   );
 }
 
