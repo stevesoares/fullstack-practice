@@ -1,32 +1,15 @@
-import Link from "next/link";
-import { Cormorant_Garamond } from "next/font/google";
-import { AppTabs } from "./_components/AppTabs";
-import { UserMenu } from "./_components/UserMenu";
-
-const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+import { AppSidebar } from "@/components/app-shell/app-sidebar";
+import { MobileBottomNav } from "@/components/app-shell/mobile-bottom-nav";
+import { TopBar } from "@/components/app-shell/top-bar";
 
 export default function AppLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="min-h-dvh">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto max-w-7xl px-4 py-3">
-          <div className="flex items-center justify-center">
-            <Link href="/app" className={`${cormorant.className} text-xl tracking-wide`} aria-label="Amelia App" tabIndex={0}>Amelia</Link>
-          </div>
-          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-            <div className="flex-1" />
-            <AppTabs />
-            <div className="flex-1 flex justify-end">
-              <UserMenu />
-            </div>
-          </div>
-        </div>
-      </header>
-      {children}
+    <div className="min-h-dvh bg-background">
+      <AppSidebar />
+      <TopBar />
+      <div className="pb-20 lg:ml-72 lg:pb-6">{children}</div>
+      <MobileBottomNav />
     </div>
   );
 }
-
-// tabs moved to client component for active state
-
 

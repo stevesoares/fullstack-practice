@@ -1,16 +1,14 @@
 import { prisma } from "@/server/db";
-import SettingsForm from "./settings-form";
 import { requireUserId } from "@/server/require-user";
+import SettingsForm from "./settings-form";
 
 export default async function SettingsPage() {
   const userId = await requireUserId();
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-8 space-y-8">
-      <h1 className="font-[var(--font-cormorant)] text-4xl">Settings</h1>
+    <main className="mx-auto w-full max-w-5xl px-4 py-4 md:px-6 md:py-6">
       <SettingsForm user={user} />
     </main>
   );
 }
-

@@ -16,12 +16,12 @@ export async function GET(req: Request) {
     if (from || to) where.startsAt = startsAt;
 
     const events = await prisma.calendarEvent.findMany({ where, orderBy: { startsAt: "asc" } });
-    return Response.json({ events });
+    return Response.json({ ok: true, data: { events } });
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ ok: false, data: null, message: "Unauthorized" }, { status: 401 });
     }
-    return Response.json({ message: "Failed to fetch events" }, { status: 500 });
+    return Response.json({ ok: false, data: null, message: "Failed to fetch events" }, { status: 500 });
   }
 }
 
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     const userId = await requireUserId();
     const { title, description, location, startsAt, endsAt, projectId } = await req.json();
     if (!title || !startsAt || !endsAt) {
-      return Response.json({ message: "Missing required fields" }, { status: 400 });
+      return Response.json({ ok: false, data: null, message: "Missing required fields" }, { status: 400 });
     }
     const event = await prisma.calendarEvent.create({
       data: {
@@ -43,11 +43,11 @@ export async function POST(req: Request) {
         projectId: projectId || null,
       },
     });
-    return Response.json({ ok: true, event });
+    return Response.json({ ok: true, data: { event }, message: "Event created" });
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ ok: false, data: null, message: "Unauthorized" }, { status: 401 });
     }
-    return Response.json({ message: "Failed to create event" }, { status: 500 });
+    return Response.json({ ok: false, data: null, message: "Failed to create event" }, { status: 500 });
   }
 }

@@ -5,12 +5,12 @@ export async function GET() {
   try {
     const userId = await requireUserId();
     const projects = await prisma.project.findMany({ where: { ownerId: userId }, orderBy: { createdAt: "desc" } });
-    return Response.json({ projects });
+    return Response.json({ ok: true, data: { projects } });
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ ok: false, data: null, message: "Unauthorized" }, { status: 401 });
     }
-    return Response.json({ message: "Failed to fetch projects" }, { status: 500 });
+    return Response.json({ ok: false, data: null, message: "Failed to fetch projects" }, { status: 500 });
   }
 }
 
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   try {
     const userId = await requireUserId();
     const { title, contactId, eventDate } = await req.json();
-    if (!title) return Response.json({ message: "Missing title" }, { status: 400 });
+    if (!title) return Response.json({ ok: false, data: null, message: "Missing title" }, { status: 400 });
     const project = await prisma.project.create({
       data: {
         ownerId: userId,
@@ -27,12 +27,11 @@ export async function POST(req: Request) {
         eventDate: eventDate ? new Date(eventDate) : null,
       },
     });
-    return Response.json({ ok: true, project });
+    return Response.json({ ok: true, data: { project }, message: "Project created" });
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ ok: false, data: null, message: "Unauthorized" }, { status: 401 });
     }
-    return Response.json({ message: "Failed to create project" }, { status: 500 });
+    return Response.json({ ok: false, data: null, message: "Failed to create project" }, { status: 500 });
   }
 }
-

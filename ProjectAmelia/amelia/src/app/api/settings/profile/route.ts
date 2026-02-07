@@ -10,9 +10,9 @@ export async function POST(req: Request) {
     userId = await requireUserId();
   } catch (error) {
     if (error instanceof UnauthorizedError) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ ok: false, data: null, message: "Unauthorized" }, { status: 401 });
     }
-    return Response.json({ message: "Failed to authorize user" }, { status: 500 });
+    return Response.json({ ok: false, data: null, message: "Failed to authorize user" }, { status: 500 });
   }
 
   const schema = z.object({
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
   });
   const body = await req.json();
   const parsed = schema.safeParse(body);
-  if (!parsed.success) return Response.json({ message: "Invalid input" }, { status: 400 });
+  if (!parsed.success) return Response.json({ ok: false, data: null, message: "Invalid input" }, { status: 400 });
 
   const { firstName, lastName, companyName, email, phone, address, billingEmail, addressStreet, addressCity, addressState, addressPostalCode } = parsed.data;
   const normalizedParts = [addressStreet, addressCity, addressState, addressPostalCode].filter(Boolean);
@@ -51,6 +51,5 @@ export async function POST(req: Request) {
       addressPostalCode: addressPostalCode ?? null,
     },
   });
-  return Response.json({ ok: true });
+  return Response.json({ ok: true, data: null, message: "Profile updated" });
 }
-

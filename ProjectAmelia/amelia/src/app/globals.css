@@ -63,10 +63,27 @@
 
 /* Base */
 html { color-scheme: light dark; }
-body { @apply bg-background text-foreground; }
+body {
+  @apply bg-background text-foreground;
+  background-image:
+    radial-gradient(circle at 10% 10%, color-mix(in oklch, var(--primary) 14%, transparent) 0, transparent 45%),
+    radial-gradient(circle at 90% 0%, color-mix(in oklch, var(--accent) 16%, transparent) 0, transparent 40%);
+  background-attachment: fixed;
+}
 
 /* Smooth scroll with reduced motion respect */
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: color-mix(in oklch, var(--primary) 35%, white);
+  color: var(--foreground);
 }
