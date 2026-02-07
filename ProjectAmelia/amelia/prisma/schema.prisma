@@ -41,6 +41,7 @@ model User {
   // Auth
   accounts Account[]
   sessions Session[]
+  passwordResetTokens PasswordResetToken[]
 
   // App domain
   leads       Lead[]
@@ -90,6 +91,18 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId, expiresAt])
 }
 
 enum LeadStatus {
@@ -243,5 +256,4 @@ model CalendarEvent {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
-
 

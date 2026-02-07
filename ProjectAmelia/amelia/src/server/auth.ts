@@ -34,16 +34,9 @@ export const authOptions: NextAuthOptions = {
         if (!parsed.success) return null;
         const { email, password } = parsed.data as { email: string; password: string };
         const user = await prisma.user.findUnique({ where: { email } });
-        if (!user) return null;
-
-        // Transition: if user has no passwordHash yet, set it now
-        if (!user.passwordHash) {
-          const hash = await bcrypt.hash(password, 10);
-          await prisma.user.update({ where: { id: user.id }, data: { passwordHash: hash } });
-        } else {
-          const ok = await bcrypt.compare(password, user.passwordHash);
-          if (!ok) return null;
-        }
+        if (!user?.passwordHash) return null;
+        const ok = await bcrypt.compare(password, user.passwordHash);
+        if (!ok) return null;
 
         return { id: user.id, email: user.email ?? undefined, name: user.name ?? undefined };
       },
@@ -74,5 +67,4 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
 

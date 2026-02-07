@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { prisma } from "@/server/db";
+import { requireUserId } from "@/server/require-user";
 
 export default async function LeadsPage() {
-  const leads = await prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 20 });
+  const userId = await requireUserId();
+  const leads = await prisma.lead.findMany({
+    where: { ownerId: userId },
+    orderBy: { createdAt: "desc" },
+    take: 20,
+  });
   return (
     <main className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
       <h1 className="mb-6 font-[var(--font-cormorant)] text-4xl">Leads</h1>
@@ -26,5 +32,4 @@ export default async function LeadsPage() {
     </main>
   );
 }
-
 

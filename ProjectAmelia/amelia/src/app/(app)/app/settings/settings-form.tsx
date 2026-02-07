@@ -10,6 +10,10 @@ type User = {
   email: string | null;
   phone: string | null;
   address: string | null;
+  addressStreet: string | null;
+  addressCity: string | null;
+  addressState: string | null;
+  addressPostalCode: string | null;
   image: string | null;
   plan: string | null;
   billingEmail: string | null;
@@ -23,10 +27,10 @@ export default function SettingsForm({ user }: { user: User | null }) {
     email: user?.email ?? "",
     phone: user?.phone ?? "",
     address: user?.address ?? "",
-    addressStreet: (user as any)?.addressStreet ?? "",
-    addressCity: (user as any)?.addressCity ?? "",
-    addressState: (user as any)?.addressState ?? "",
-    addressPostalCode: (user as any)?.addressPostalCode ?? "",
+    addressStreet: user?.addressStreet ?? "",
+    addressCity: user?.addressCity ?? "",
+    addressState: user?.addressState ?? "",
+    addressPostalCode: user?.addressPostalCode ?? "",
     billingEmail: user?.billingEmail ?? user?.email ?? "",
     plan: user?.plan ?? "starter",
     currentPassword: "",
@@ -149,5 +153,4 @@ const Field = ({ name, label, value, onChange, className = "", type = "text", di
     <input name={name} value={value} onChange={onChange} type={type} disabled={disabled} className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring disabled:opacity-50" />
   </label>
 );
-
 

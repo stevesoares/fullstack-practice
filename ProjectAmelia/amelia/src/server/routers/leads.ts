@@ -1,15 +1,17 @@
 import { prisma } from "@/server/db";
-import { publicProcedure, router } from "@/server/trpc";
+import { protectedProcedure, router } from "@/server/trpc";
 import { z } from "zod";
 
 export const leadsRouter = router({
-  list: publicProcedure.query(async () => {
-    return prisma.lead.findMany({ orderBy: { createdAt: "desc" } });
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return prisma.lead.findMany({
+      where: { ownerId: ctx.userId },
+      orderBy: { createdAt: "desc" },
+    });
   }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
-        ownerId: z.string().cuid(),
         clientName: z.string().min(1),
         clientEmail: z.string().email(),
         source: z.string().optional(),
@@ -17,10 +19,10 @@ export const leadsRouter = router({
         eventDate: z.string().datetime().optional(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       return prisma.lead.create({
         data: {
-          ownerId: input.ownerId,
+          ownerId: ctx.userId,
           clientName: input.clientName,
           clientEmail: input.clientEmail,
           source: input.source,
@@ -30,5 +32,4 @@ export const leadsRouter = router({
       });
     }),
 });
-
 

@@ -1,11 +1,13 @@
 import { prisma } from "@/server/db";
 import { notFound } from "next/navigation";
+import { requireUserId } from "@/server/require-user";
 
 type PageProps = { params: Promise<{ id: string }> };
 
 export default async function AppLeadDetailPage({ params }: PageProps) {
+  const userId = await requireUserId();
   const { id } = await params;
-  const lead = await prisma.lead.findUnique({ where: { id } });
+  const lead = await prisma.lead.findFirst({ where: { id, ownerId: userId } });
   if (!lead) return notFound();
 
   return (
@@ -37,5 +39,4 @@ export default async function AppLeadDetailPage({ params }: PageProps) {
     </main>
   );
 }
-
 

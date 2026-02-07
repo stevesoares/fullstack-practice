@@ -1,8 +1,8 @@
 import { prisma } from "@/server/db";
 import CreateNew from "./_components/CreateNew";
-import Link from "next/link";
 import CalendarMonth from "./_components/CalendarMonth";
 import { CreateContactModalMount, CreateEventModalMount, CreateProjectModalMount } from "./_components/CreateModals";
+import { requireUserId } from "@/server/require-user";
 
 function startOfWeek(date: Date) {
   const d = new Date(date);
@@ -14,26 +14,33 @@ function startOfWeek(date: Date) {
 }
 
 export default async function AppHomePage() {
+  const userId = await requireUserId();
+
   // Counts
   await Promise.all([
-    prisma.lead.count(),
-    prisma.invoice.count(),
-    prisma.gallery.count(),
+    prisma.lead.count({ where: { ownerId: userId } }),
+    prisma.invoice.count({ where: { ownerId: userId } }),
+    prisma.gallery.count({ where: { ownerId: userId } }),
   ]);
 
   // KPI: conversion rate = booked / total leads
   const [totalLeads, bookedLeads] = await Promise.all([
-    prisma.lead.count(),
-    prisma.lead.count({ where: { status: "BOOKED" } }),
+    prisma.lead.count({ where: { ownerId: userId } }),
+    prisma.lead.count({ where: { ownerId: userId, status: "BOOKED" } }),
   ]);
   const conversionRate = totalLeads === 0 ? 0 : Math.round((bookedLeads / totalLeads) * 100);
 
   // KPI: leads per week (current week)
   const weekStart = startOfWeek(new Date());
-  const leadsThisWeek = await prisma.lead.count({ where: { createdAt: { gte: weekStart } } });
+  const leadsThisWeek = await prisma.lead.count({
+    where: { ownerId: userId, createdAt: { gte: weekStart } },
+  });
 
   // KPI: average sales per client (avg invoice amount per unique lead with invoices)
-  const invoices = await prisma.invoice.findMany({ select: { amountUsd: true, leadId: true } });
+  const invoices = await prisma.invoice.findMany({
+    where: { ownerId: userId },
+    select: { amountUsd: true, leadId: true },
+  });
   const totalsByLead = invoices.reduce<Record<string, number>>((acc, inv) => {
     const key = inv.leadId ?? `__no_lead_${Math.random()}`;
     acc[key] = (acc[key] ?? 0) + inv.amountUsd;
@@ -100,5 +107,4 @@ const KpiCard = ({ title, value, subtext }: { title: string; value: string | num
     {subtext ? <p className="mt-1 text-xs text-muted-foreground">{subtext}</p> : null}
   </div>
 );
-
 

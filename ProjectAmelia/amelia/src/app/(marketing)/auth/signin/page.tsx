@@ -3,8 +3,17 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function SignInPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignInForm />
+    </Suspense>
+  );
+}
+
+function SignInForm() {
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl") ?? "/app";
   const [email, setEmail] = useState("");
@@ -23,7 +32,7 @@ export default function SignInPage() {
       callbackUrl,
     });
     if (res?.error) {
-      setError("Invalid email or password");
+      setError("Sign-in failed. If your account has no password yet, use password reset.");
       return;
     }
     window.location.href = res?.url ?? callbackUrl;
@@ -53,7 +62,7 @@ export default function SignInPage() {
             <input
               type={showPassword ? "text" : "password"}
               required
-              minLength={6}
+              minLength={8}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-border bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
@@ -89,9 +98,10 @@ export default function SignInPage() {
         <p className="text-center text-sm text-muted-foreground">
           No account? <a className="underline" href={`/auth/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}>Sign up</a>
         </p>
+        <p className="text-center text-sm text-muted-foreground">
+          <a className="underline" href="/auth/reset-password">Forgot password?</a>
+        </p>
       </form>
     </main>
   );
 }
-
-

@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { US_STATES } from "@/lib/us-states";
 // Address fields are collected separately (street, city, state, postalCode)
 
 export default function SignUpPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignUpForm />
+    </Suspense>
+  );
+}
+
+function SignUpForm() {
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl") ?? "/app";
   const [form, setForm] = useState({
@@ -48,7 +56,12 @@ export default function SignUpPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formattedPhone]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
@@ -141,28 +154,28 @@ export default function SignUpPage() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="text-sm">
             <span className="text-muted-foreground">First Name</span>
-            <input name="firstName" required value={form.firstName} onChange={handleChange} onBlur={() => setFieldTouched("firstName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.firstName && !form.firstName ? "border-red-500" : "border-border"}`} aria-label="First Name" />
+            <input name="firstName" required value={form.firstName} onChange={handleInputChange} onBlur={() => setFieldTouched("firstName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.firstName && !form.firstName ? "border-red-500" : "border-border"}`} aria-label="First Name" />
           </label>
           <label className="text-sm">
             <span className="text-muted-foreground">Last Name</span>
-            <input name="lastName" required value={form.lastName} onChange={handleChange} onBlur={() => setFieldTouched("lastName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.lastName && !form.lastName ? "border-red-500" : "border-border"}`} aria-label="Last Name" />
+            <input name="lastName" required value={form.lastName} onChange={handleInputChange} onBlur={() => setFieldTouched("lastName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.lastName && !form.lastName ? "border-red-500" : "border-border"}`} aria-label="Last Name" />
           </label>
         </div>
 
         <label className="block text-sm">
           <span className="text-muted-foreground">Company Name</span>
-          <input name="companyName" required value={form.companyName} onChange={handleChange} onBlur={() => setFieldTouched("companyName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.companyName && !form.companyName ? "border-red-500" : "border-border"}`} aria-label="Company Name" />
+          <input name="companyName" required value={form.companyName} onChange={handleInputChange} onBlur={() => setFieldTouched("companyName")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.companyName && !form.companyName ? "border-red-500" : "border-border"}`} aria-label="Company Name" />
         </label>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="text-sm">
             <span className="text-muted-foreground">Email</span>
-            <input type="email" name="email" required value={form.email} onChange={handleChange} onBlur={() => setFieldTouched("email")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.email && !emailValid ? "border-red-500" : "border-border"}`} aria-label="Email" />
+            <input type="email" name="email" required value={form.email} onChange={handleInputChange} onBlur={() => setFieldTouched("email")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.email && !emailValid ? "border-red-500" : "border-border"}`} aria-label="Email" />
             {touched.email && !emailValid ? <p className="mt-1 text-xs text-red-600">Enter a valid email.</p> : null}
           </label>
           <label className="text-sm">
             <span className="text-muted-foreground">Phone</span>
-            <input name="phone" required value={form.phone} onChange={handleChange} onBlur={() => setFieldTouched("phone")} inputMode="numeric" className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.phone && !phoneValid ? "border-red-500" : "border-border"}`} aria-label="Phone" placeholder="(555) 555-5555" />
+            <input name="phone" required value={form.phone} onChange={handleInputChange} onBlur={() => setFieldTouched("phone")} inputMode="numeric" className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.phone && !phoneValid ? "border-red-500" : "border-border"}`} aria-label="Phone" placeholder="(555) 555-5555" />
             {touched.phone && !phoneValid ? <p className="mt-1 text-xs text-red-600">Enter a 10-digit US phone number.</p> : null}
           </label>
         </div>
@@ -170,16 +183,16 @@ export default function SignUpPage() {
         <div className="grid grid-cols-1 gap-3">
           <label className="text-sm">
             <span className="text-muted-foreground">Street Address</span>
-            <input name="addressStreet" required value={form.addressStreet} onChange={handleChange} onBlur={() => setFieldTouched("addressStreet")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressStreet && !form.addressStreet ? "border-red-500" : "border-border"}`} aria-label="Street Address" />
+            <input name="addressStreet" required value={form.addressStreet} onChange={handleInputChange} onBlur={() => setFieldTouched("addressStreet")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressStreet && !form.addressStreet ? "border-red-500" : "border-border"}`} aria-label="Street Address" />
           </label>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <label className="text-sm sm:col-span-2">
               <span className="text-muted-foreground">City</span>
-              <input name="addressCity" required value={form.addressCity} onChange={handleChange} onBlur={() => setFieldTouched("addressCity")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressCity && !form.addressCity ? "border-red-500" : "border-border"}`} aria-label="City" />
+              <input name="addressCity" required value={form.addressCity} onChange={handleInputChange} onBlur={() => setFieldTouched("addressCity")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressCity && !form.addressCity ? "border-red-500" : "border-border"}`} aria-label="City" />
             </label>
             <label className="text-sm">
               <span className="text-muted-foreground">State</span>
-              <select name="addressState" required value={form.addressState} onChange={handleChange} onBlur={() => setFieldTouched("addressState")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressState && !form.addressState ? "border-red-500" : "border-border"}`} aria-label="State">
+              <select name="addressState" required value={form.addressState} onChange={handleSelectChange} onBlur={() => setFieldTouched("addressState")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressState && !form.addressState ? "border-red-500" : "border-border"}`} aria-label="State">
                 <option value="">Select</option>
                 {US_STATES.map((s) => (
                   <option key={s.code} value={s.code}>{s.name}</option>
@@ -189,7 +202,7 @@ export default function SignUpPage() {
           </div>
           <label className="text-sm">
             <span className="text-muted-foreground">ZIP Code</span>
-            <input name="addressPostalCode" required value={form.addressPostalCode} onChange={handleChange} onBlur={() => setFieldTouched("addressPostalCode")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressPostalCode && !form.addressPostalCode ? "border-red-500" : "border-border"}`} aria-label="ZIP Code" />
+            <input name="addressPostalCode" required value={form.addressPostalCode} onChange={handleInputChange} onBlur={() => setFieldTouched("addressPostalCode")} className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.addressPostalCode && !form.addressPostalCode ? "border-red-500" : "border-border"}`} aria-label="ZIP Code" />
           </label>
         </div>
 
@@ -202,7 +215,7 @@ export default function SignUpPage() {
               required
               minLength={8}
               value={form.password}
-              onChange={handleChange}
+              onChange={handleInputChange}
               onBlur={() => setFieldTouched("password")}
               className={`w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.password && !(form.password.length >= 8 && /[A-Z]/.test(form.password) && (/[0-9]/.test(form.password) || /[^A-Za-z0-9]/.test(form.password))) ? "border-red-500" : "border-border"}`}
               aria-label="Password"
@@ -228,7 +241,7 @@ export default function SignUpPage() {
             required
             minLength={8}
             value={form.confirmPassword}
-            onChange={handleChange}
+            onChange={handleInputChange}
             onBlur={() => setFieldTouched("confirmPassword")}
             className={`mt-1 w-full rounded-lg bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring border ${touched.confirmPassword && form.confirmPassword !== form.password ? "border-red-500" : "border-border"}`}
             aria-label="Confirm Password"
@@ -274,5 +287,3 @@ export default function SignUpPage() {
     </main>
   );
 }
-
-

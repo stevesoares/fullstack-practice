@@ -1,11 +1,12 @@
-async function getContacts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/contacts`, { cache: "no-store" });
-  const data = await res.json();
-  return data.contacts as Array<{ id: string; firstName: string; lastName: string; email?: string; company?: string }>;
-}
+import { prisma } from "@/server/db";
+import { requireUserId } from "@/server/require-user";
 
 export default async function ContactsPage() {
-  const contacts = await getContacts();
+  const userId = await requireUserId();
+  const contacts = await prisma.contact.findMany({
+    where: { ownerId: userId },
+    orderBy: { createdAt: "desc" },
+  });
   return (
     <main className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
       <h1 className="mb-6 font-[var(--font-cormorant)] text-4xl">Contacts</h1>
@@ -32,5 +33,4 @@ export default async function ContactsPage() {
     </main>
   );
 }
-
 

@@ -9,6 +9,7 @@ Project Amelia – Marketing + App (Next.js 15, Tailwind v4, Prisma)
 ## Quick Start (Local)
 
 ```bash
+source ~/.nvm/nvm.sh && nvm use
 pnpm install
 cp .env.example .env.local
 pnpm prisma:generate
@@ -18,9 +19,9 @@ pnpm dev
 
 Then:
 - Visit http://localhost:3000 (marketing landing)
-- Click Login → choose Credentials, enter any email + password (a user will be created if none exists)
+- Create an account at `/auth/signup`, then sign in at `/auth/signin`
 - You’ll be redirected to `/app` with the app UI and KPIs
-- Optional seed data: open http://localhost:3000/api/seed to create demo leads
+- Optional seed data (development): open http://localhost:3000/api/seed to create demo leads
 
 ## Routes & Structure
 - Marketing: `src/app/(marketing)/page.tsx`, navbar in `src/app/(landing)/components/Navbar.tsx`
@@ -36,19 +37,20 @@ Copy `.env.example` → `.env.local` and adjust as needed. Minimum for local:
 - `NEXTAUTH_URL=http://localhost:3000`
 - `NEXTAUTH_SECRET=generate_a_random_string`
 OAuth provider keys are optional for local (Credentials provider works out of the box).
+`DB_PROVIDER` is an app-level flag and does not change Prisma's datasource provider in this repo.
 
 ## Testing Locally (Pre-deploy)
 - Start dev server: `pnpm dev`
 - Seed demo data: GET `http://localhost:3000/api/seed`
 - Check auth guard: open `http://localhost:3000/app` in an incognito window → redirected to sign-in
-- Run e2e smoke test: `pnpm test` (verifies landing renders hero heading)
+- Run e2e smoke test: `pnpm exec playwright install chromium && pnpm test` (verifies landing renders hero heading)
 
 ## Deploy (Vercel)
 See `SETUP.md` for complete instructions. High level:
 - Create a Vercel project, connect this repo
 - Set env vars from `.env.example`
-- Use Postgres (e.g., Supabase) and set `DB_PROVIDER=postgresql` and `DATABASE_URL`
-- Run `pnpm prisma:generate` locally; run your first migration against your Postgres DB before production
+- Use SQLite for this stabilization phase (`DATABASE_URL=file:./prisma/dev.db` locally, a persistent SQLite path in production if needed)
+- Postgres migration is planned for a follow-up phase
 
 ## Fonts & UI
 - Sans: Geist; Mono: Geist Mono; Serif brand: Cormorant Garamond for the “Amelia” wordmark in the app header.
